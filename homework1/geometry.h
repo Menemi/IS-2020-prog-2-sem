@@ -4,7 +4,7 @@
 #include <vector>
 
 using namespace std;
-
+//todo cpp
 class Point {
 private:
     double m_x;
@@ -40,6 +40,7 @@ private:
     int m_n;
 public:
     PolygonalChain() {
+        //todo clear is weird here
         m_n = 0;
         m_point.clear();
     };
@@ -87,6 +88,7 @@ public:
     ClosedPolygonalChain(const ClosedPolygonalChain &other) = default;
 
     double perimeter() const override {
+        //copy-paste with PolygonalChain perimeter
         double result = 0;
 
         for (int i = 0; i < getN() - 1; i++)
@@ -146,6 +148,7 @@ public:
             swap(b, c);
         }
 
+        //todo sqrt then pow 2
         if (pow(a, 2) + pow(b, 2) == pow(c, 2))
             return true;
         else
@@ -175,6 +178,7 @@ public:
     Trapezoid &operator=(const Trapezoid &other) = default;
 };
 
+//todo area and perimeter for RegularPolygon
 class RegularPolygon : public Polygon {
 public:
     RegularPolygon() : Polygon() {};
