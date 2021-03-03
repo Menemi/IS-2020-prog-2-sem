@@ -15,7 +15,7 @@ public:
 
     Point(double x, double y);
 
-    Point(const Point& other);
+    Point(const Point &other);
 
     virtual ~Point();
 
@@ -23,7 +23,7 @@ public:
 
     double getY() const;
 
-    Point& operator=(const Point& other);
+    Point &operator=(const Point &other);
 };
 
 class PolygonalChain : public Point {
@@ -35,13 +35,13 @@ public:
 
     PolygonalChain(int n, Point point[]);
 
-    PolygonalChain(const PolygonalChain& other);
+    PolygonalChain(const PolygonalChain &other);
 
     int getN() const;
 
-    static double distance(const Point& point1, const Point& point2);
+    static double distance(const Point &point1, const Point &point2);
 
-    PolygonalChain& operator=(const PolygonalChain& other);
+    PolygonalChain &operator=(const PolygonalChain &other);
 
     virtual double perimeter() const;
 
@@ -52,11 +52,11 @@ class ClosedPolygonalChain : public PolygonalChain {
 public:
     ClosedPolygonalChain();
 
-    ClosedPolygonalChain(int n, Point* point);
+    ClosedPolygonalChain(int n, Point *point);
 
-    ClosedPolygonalChain(const ClosedPolygonalChain& other);
+    ClosedPolygonalChain(const ClosedPolygonalChain &other);
 
-    ClosedPolygonalChain& operator=(const ClosedPolygonalChain& other);
+    ClosedPolygonalChain &operator=(const ClosedPolygonalChain &other);
 
     virtual double perimeter() const;
 };
@@ -65,11 +65,11 @@ class Polygon : public ClosedPolygonalChain {
 public:
     Polygon();
 
-    Polygon(int n, Point* point);
+    Polygon(int n, Point *point);
 
-    Polygon(const Polygon& other);
+    Polygon(const Polygon &other);
 
-    Polygon& operator=(const Polygon& other);
+    Polygon &operator=(const Polygon &other);
 
     virtual double area() const;
 };
@@ -78,11 +78,11 @@ class Triangle : public Polygon {
 public:
     Triangle();
 
-    Triangle(int n, Point* point);
+    Triangle(int n, Point *point);
 
-    Triangle(const Triangle& other);
+    Triangle(const Triangle &other);
 
-    Triangle& operator=(const Triangle& other);
+    Triangle &operator=(const Triangle &other);
 
     bool hasRightAngle() const;
 };
@@ -91,11 +91,11 @@ class Trapezoid : public Polygon {
 public:
     Trapezoid();
 
-    Trapezoid(int n, Point* point);
+    Trapezoid(int n, Point *point);
 
-    Trapezoid(const Trapezoid& other);
+    Trapezoid(const Trapezoid &other);
 
-    Trapezoid& operator=(const Trapezoid& other);
+    Trapezoid &operator=(const Trapezoid &other);
 
     double height() const;
 };
@@ -104,11 +104,11 @@ class RegularPolygon : public Polygon {
 public:
     RegularPolygon();
 
-    RegularPolygon(int n, Point* point);
+    RegularPolygon(int n, Point *point);
 
-    RegularPolygon(const RegularPolygon& other);
+    RegularPolygon(const RegularPolygon &other);
 
-    RegularPolygon& operator=(const RegularPolygon& other);
+    RegularPolygon &operator=(const RegularPolygon &other);
 
     virtual double area() const;
 

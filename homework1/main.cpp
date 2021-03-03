@@ -42,7 +42,7 @@ void PolygonsCheck() {
     Trapezoid tra(4, b);
     tra = tr;
     assert(abs(tra.height() - 4) < EPS);
-    Trapezoid* trap = new Trapezoid(4, b);
+    Trapezoid *trap = new Trapezoid(4, b);
     Trapezoid trCopy(*trap);
     delete trap;
     assert(abs(trCopy.height() - 4) < EPS);
