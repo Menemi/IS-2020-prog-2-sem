@@ -74,7 +74,7 @@ ClosedPolygonalChain::ClosedPolygonalChain(int n, Point *point) : PolygonalChain
 ClosedPolygonalChain::ClosedPolygonalChain(const ClosedPolygonalChain &other) = default;
 
 double ClosedPolygonalChain::perimeter() const {
-    //todo copy-paste with PolygonalChain perimeter
+    //fixed copy-paste with PolygonalChain perimeter
     double result = 0;
     result = PolygonalChain::perimeter();
     result += distance(getPoint(getN() - 1), getPoint(0));
