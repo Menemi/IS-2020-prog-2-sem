@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+
 #include "geometry.h"
 #include <cmath>
 #include <vector>
@@ -14,7 +16,7 @@ Point::Point(double x, double y) {
     m_y = y;
 }
 
-Point::Point(const Point& other) {
+Point::Point(const Point &other) {
     m_x = other.m_x;
     m_y = other.m_y;
 }
@@ -25,7 +27,7 @@ double Point::getX() const { return m_x; }
 
 double Point::getY() const { return m_y; }
 
-Point& Point::operator=(const Point & other) = default;
+Point &Point::operator=(const Point &other) = default;
 
 PolygonalChain::PolygonalChain() {
     //fixed clear is weird here
@@ -39,7 +41,7 @@ PolygonalChain::PolygonalChain(int n, Point point[]) {
     }
 }
 
-PolygonalChain::PolygonalChain(const PolygonalChain & other) : Point(other) {
+PolygonalChain::PolygonalChain(const PolygonalChain &other) : Point(other) {
     m_n = other.m_n;
     m_point = other.m_point;
 }
@@ -50,7 +52,7 @@ Point PolygonalChain::getPoint(int number) const {
 
 int PolygonalChain::getN() const { return m_n; }
 
-double PolygonalChain::distance(const Point & point1, const Point & point2) {
+double PolygonalChain::distance(const Point &point1, const Point &point2) {
     return sqrt(pow(point1.getX() - point2.getX(), 2) + pow(point1.getY() - point2.getY(), 2));
 }
 
@@ -63,16 +65,16 @@ double PolygonalChain::perimeter() const {
     return result;
 }
 
-PolygonalChain& PolygonalChain::operator=(const PolygonalChain & other) = default;
+PolygonalChain &PolygonalChain::operator=(const PolygonalChain &other) = default;
 
 ClosedPolygonalChain::ClosedPolygonalChain() : PolygonalChain() {}
 
-ClosedPolygonalChain::ClosedPolygonalChain(int n, Point * point) : PolygonalChain(n, point) {}
+ClosedPolygonalChain::ClosedPolygonalChain(int n, Point *point) : PolygonalChain(n, point) {}
 
-ClosedPolygonalChain::ClosedPolygonalChain(const ClosedPolygonalChain & other) = default;
+ClosedPolygonalChain::ClosedPolygonalChain(const ClosedPolygonalChain &other) = default;
 
 double ClosedPolygonalChain::perimeter() const {
-    //fixed copy-paste with PolygonalChain perimeter
+    //todo copy-paste with PolygonalChain perimeter
     double result = 0;
     result = PolygonalChain::perimeter();
     result += distance(getPoint(getN() - 1), getPoint(0));
@@ -80,13 +82,13 @@ double ClosedPolygonalChain::perimeter() const {
     return result;
 }
 
-ClosedPolygonalChain& ClosedPolygonalChain::operator=(const ClosedPolygonalChain & other) = default;
+ClosedPolygonalChain &ClosedPolygonalChain::operator=(const ClosedPolygonalChain &other) = default;
 
 Polygon::Polygon() : ClosedPolygonalChain() {}
 
-Polygon::Polygon(int n, Point * point) : ClosedPolygonalChain(n, point) {}
+Polygon::Polygon(int n, Point *point) : ClosedPolygonalChain(n, point) {}
 
-Polygon::Polygon(const Polygon & other) = default;
+Polygon::Polygon(const Polygon &other) = default;
 
 double Polygon::area() const {
     double result1 = 0, result2 = 0, result;
@@ -104,13 +106,13 @@ double Polygon::area() const {
     return result / 2;
 }
 
-Polygon& Polygon::operator=(const Polygon & other) = default;
+Polygon &Polygon::operator=(const Polygon &other) = default;
 
 Triangle::Triangle() : Polygon() {}
 
-Triangle::Triangle(int n, Point * point) : Polygon(n, point) {}
+Triangle::Triangle(int n, Point *point) : Polygon(n, point) {}
 
-Triangle::Triangle(const Triangle & other) = default;
+Triangle::Triangle(const Triangle &other) = default;
 
 bool Triangle::hasRightAngle() const {
     double a, b, c;
@@ -134,13 +136,13 @@ bool Triangle::hasRightAngle() const {
         return false;
 }
 
-Triangle& Triangle::operator=(const Triangle & other) = default;
+Triangle &Triangle::operator=(const Triangle &other) = default;
 
 Trapezoid::Trapezoid() : Polygon() {}
 
-Trapezoid::Trapezoid(int n, Point * point) : Polygon(n, point) {}
+Trapezoid::Trapezoid(int n, Point *point) : Polygon(n, point) {}
 
-Trapezoid::Trapezoid(const Trapezoid & other) = default;
+Trapezoid::Trapezoid(const Trapezoid &other) = default;
 
 double Trapezoid::height() const {
     double tempSide1, timeSide2;
@@ -151,16 +153,16 @@ double Trapezoid::height() const {
     return result;
 }
 
-Trapezoid& Trapezoid::operator=(const Trapezoid & other) = default;
+Trapezoid &Trapezoid::operator=(const Trapezoid &other) = default;
 
 //fixed area and perimeter for RegularPolygon
 RegularPolygon::RegularPolygon() : Polygon() {}
 
-RegularPolygon::RegularPolygon(int n, Point * point) : Polygon(n, point) {}
+RegularPolygon::RegularPolygon(int n, Point *point) : Polygon(n, point) {}
 
-RegularPolygon::RegularPolygon(const RegularPolygon & other) = default;
+RegularPolygon::RegularPolygon(const RegularPolygon &other) = default;
 
-RegularPolygon& RegularPolygon::operator=(const RegularPolygon & other) = default;
+RegularPolygon &RegularPolygon::operator=(const RegularPolygon &other) = default;
 
 double RegularPolygon::area() const {
     double side = distance(getPoint(0), getPoint(1));
