@@ -58,7 +58,7 @@ public:
 
     ClosedPolygonalChain &operator=(const ClosedPolygonalChain &other);
 
-    virtual double perimeter() const;
+    double perimeter() const override;
 };
 
 class Polygon : public ClosedPolygonalChain {
@@ -110,7 +110,7 @@ public:
 
     RegularPolygon &operator=(const RegularPolygon &other);
 
-    virtual double area() const;
+    double area() const override;
 
-    virtual double perimeter() const;
+    double perimeter() const override;
 };

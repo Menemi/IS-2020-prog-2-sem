@@ -1,8 +1,4 @@
-#define _USE_MATH_DEFINES
-
 #include "geometry.h"
-#include <cmath>
-#include <vector>
 
 using namespace std;
 
@@ -75,8 +71,7 @@ ClosedPolygonalChain::ClosedPolygonalChain(const ClosedPolygonalChain &other) = 
 
 double ClosedPolygonalChain::perimeter() const {
     //fixed copy-paste with PolygonalChain perimeter
-    double result = 0;
-    result = PolygonalChain::perimeter();
+    double result = PolygonalChain::perimeter();
     result += distance(getPoint(getN() - 1), getPoint(0));
 
     return result;
