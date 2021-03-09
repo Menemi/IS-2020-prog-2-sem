@@ -125,10 +125,8 @@ bool Triangle::hasRightAngle() const {
     }
 
     //fixed sqrt then pow 2
-    if (a + b == c)
-        return true;
-    else
-        return false;
+    //fixed return expression
+    return (a + b == c);
 }
 
 Triangle &Triangle::operator=(const Triangle &other) = default;
