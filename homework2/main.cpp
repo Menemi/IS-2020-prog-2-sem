@@ -3,6 +3,7 @@
 #include <sstream>
 #include <assert.h>
 
+
 using namespace std;
 
 void checkOut() {
@@ -18,11 +19,11 @@ void checkOut() {
 
 void PolynomialOperators() {
     stringstream ss;
-    const auto a = Polynomial(0, 2, new int[3]{1, 2, 3});
+    const auto a =  Polynomial(0, 2, new int[3]{1, 2, 3}) ;
     const auto b = Polynomial(1, 2, new int[2]{-3, 4});
     auto c = Polynomial(-1, 2, new int[4]{1, -3, 0, -1});
     const auto d = Polynomial();
-    const auto e = Polynomial(0, 2, new int[3]{0, 3, -3});
+    const auto e =  Polynomial(0, 2, new int[3]{0, 3, -3});
     const auto f = Polynomial(-2, 2, new int[5]{1, 0, 0, 0, 1});
     assert(a * b == b * a);
     assert(d * e == d);
@@ -39,7 +40,15 @@ void PolynomialOperators() {
     assert(a[10] == 0);
     c[5] = 3;
     assert(c.get(4) == 3053.25);
+    assert((-c) == (-(-(-c))));
+    auto h = -c;
+    assert(c[5] == 3 && h[5] == -3);
+    assert((-c)[5] == -3);
+    auto g = b;
+    g[3] = 0;
+    assert(g == b);
 }
+
 
 int main() {
     checkOut();

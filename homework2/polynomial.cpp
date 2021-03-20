@@ -40,21 +40,47 @@ Polynomial::~Polynomial() = default;
 //    return m_coefficient[number];
 //}
 
-Polynomial &Polynomial::operator=(const Polynomial &other) = default;
-
-ostream & Polynomial::operator<<(ostream &out, const Polynomial &other) {
-    if (m_coefficient[0] != 0) {
-        out << m_coefficient[0] << "x^" <<  m_degree[0];
-    }
-
-    for (int i = 0; i < m_size; i++){
-        if (m_coefficient[i] != 0) {
-
-        }
-    }
-
-    return out;
+Polynomial &Polynomial::operator=(const Polynomial &other) {
+    *m_coefficient = *other.m_coefficient;
+    *m_degree = *other.m_degree;
+    m_size = other.m_size;
 }
+
+bool Polynomial::operator==(const Polynomial &other) {
+    return (&m_coefficient == &other.m_coefficient && &m_degree == &other.m_degree && m_size == other.m_size);
+}
+
+bool Polynomial::operator!=(const Polynomial &other) {
+    return !Polynomial::operator==(other);
+}
+
+Polynomial &Polynomial::operator+=(const Polynomial &other) {
+    int minTemp, maxTemp;
+    minTemp = min(m_degree[0], other.m_degree[0]);
+    maxTemp = max(m_degree[m_size - 1], other.m_degree[other.m_size - 1]);
+
+    m_size = maxTemp - minTemp + 1;
+    m_degree = new int[m_size];
+    m_coefficient = new int[m_size];
+
+    for (int i = 0; i < ?; i++){
+
+    }
+}
+
+//ostream & Polynomial::operator<<(ostream &out, const Polynomial &other) {
+//    if (m_coefficient[0] != 0) {
+//        out << m_coefficient[0] << "x^" <<  m_degree[0];
+//    }
+//
+//    for (int i = 0; i < m_size; i++){
+//        if (m_coefficient[i] != 0) {
+//
+//        }
+//    }
+//
+//    return out;
+//}
 
 
 

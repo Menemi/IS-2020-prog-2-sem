@@ -19,17 +19,21 @@ public:
 
     ~Polynomial();
 
-    int getCoefficient(int number);
-
-    int getDegree(int number);
-
-    int getSize();
+//    int getCoefficient(int number);
+//
+//    int getDegree(int number);
+//
+//    int getSize();
 
     Polynomial &operator=(const Polynomial &other);
 
-    bool &operator==(const Polynomial &other);
+    bool operator==(const Polynomial &other);
 
-    bool &operator!=(const Polynomial &other);
+    bool operator!=(const Polynomial &other);
+
+    Polynomial &operator+=(const Polynomial &other);
+
+    Polynomial &operator-=(const Polynomial &other);
 
     Polynomial &operator+(const Polynomial &other);
 
@@ -37,17 +41,13 @@ public:
 
     //Polynomial &operator-(const Polynomial &other);
 
-    Polynomial &operator+=(const Polynomial &other);
+    Polynomial &operator*=(const Polynomial &other);
 
-    Polynomial &operator-=(const Polynomial &other);
+    Polynomial &operator/=(const Polynomial &other);
 
     Polynomial &operator*(const Polynomial &other);
 
     Polynomial &operator/(const Polynomial &other);
-
-    Polynomial &operator*=(const Polynomial &other);
-
-    Polynomial &operator/=(const Polynomial &other);
 
     ostream &operator<<(ostream& out, const Polynomial &other);
 
