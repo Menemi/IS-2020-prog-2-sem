@@ -1,14 +1,14 @@
 #pragma once
 
-#include <iostream>
-#include <vector>
+#include "cmath"
+#include "sstream"
 
 using namespace std;
 
 class Polynomial {
 private:
-    int *m_coefficient;
     int *m_degree;
+    int *m_coefficient;
     int m_size;
 public:
     Polynomial();
@@ -19,39 +19,21 @@ public:
 
     ~Polynomial();
 
-//    int getCoefficient(int number);
-//
-//    int getDegree(int number);
-//
-//    int getSize();
+    friend stringstream &operator<<(stringstream &out, const Polynomial &other);
 
     Polynomial &operator=(const Polynomial &other);
 
-    bool operator==(const Polynomial &other);
+    friend bool operator==(const Polynomial &other1, const Polynomial &other2);
 
-    bool operator!=(const Polynomial &other);
+    friend bool operator!=(const Polynomial &other1, const Polynomial &other2);
 
-    Polynomial &operator+=(const Polynomial &other);
+    friend Polynomial operator+(const Polynomial &other1, const Polynomial &other2);
 
-    Polynomial &operator-=(const Polynomial &other);
+    friend Polynomial operator-(const Polynomial &other);
 
-    Polynomial &operator+(const Polynomial &other);
+    friend Polynomial operator-(const Polynomial &other1, const Polynomial &other2);
 
-    Polynomial &operator-(const Polynomial &other);
+    friend Polynomial operator+=(Polynomial &other1, const Polynomial &other2);
 
-    //Polynomial &operator-(const Polynomial &other);
-
-    Polynomial &operator*=(const Polynomial &other);
-
-    Polynomial &operator/=(const Polynomial &other);
-
-    Polynomial &operator*(const Polynomial &other);
-
-    Polynomial &operator/(const Polynomial &other);
-
-    ostream &operator<<(ostream& out, const Polynomial &other);
-
-    ostream &operator>>(const Polynomial &other);
-
-    Polynomial &operator[](const Polynomial &other);
+    friend Polynomial operator-=(Polynomial &other1, const Polynomial &other2);
 };
