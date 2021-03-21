@@ -41,7 +41,7 @@ Polynomial::~Polynomial() = default;
 stringstream &operator<<(stringstream &out, const Polynomial &other) {
     int tempSize = other.m_size;
 
-    if (tempSize == 1 and other.m_coefficient[0] == 0) {
+    if (tempSize == 1 && other.m_coefficient[0] == 0) {
         out << "0";
     } else {
         for (int i = tempSize - 1; i >= 0; i--) {
@@ -98,6 +98,7 @@ Polynomial operator+(const Polynomial &other1, const Polynomial &other2) {
 
     for (int i = 0; i < tempSize; i++) {
         tempCoefficient[i] = 0;
+
         for (int j = 0; j < other1.m_size; j++) {
             if (other1.m_degree[j] == tempDegree)
                 tempCoefficient[i] += other1.m_coefficient[j];
@@ -107,6 +108,7 @@ Polynomial operator+(const Polynomial &other1, const Polynomial &other2) {
             if (other2.m_degree[j] == tempDegree)
                 tempCoefficient[i] += other2.m_coefficient[j];
         }
+
         tempDegree++;
     }
 
@@ -114,11 +116,11 @@ Polynomial operator+(const Polynomial &other1, const Polynomial &other2) {
 }
 
 Polynomial operator-(const Polynomial &other) {
-    Polynomial c = other;
-    for (int i = 0; i < c.m_size; i++) {
-        c.m_coefficient[i] *= -1;
+    Polynomial temp = other;
+    for (int i = 0; i < temp.m_size; i++) {
+        temp.m_coefficient[i] = -other.m_coefficient[i];
     }
-    return c;
+    return temp;
 }
 
 Polynomial operator-(const Polynomial &other1, const Polynomial &other2) {
@@ -133,4 +135,71 @@ Polynomial operator+=(Polynomial &other1, const Polynomial &other2) {
 Polynomial operator-=(Polynomial &other1, const Polynomial &other2) {
     other1 = other1 - other2;
     return other1;
+}
+
+Polynomial operator*(const Polynomial &other, int number) {
+    int tempCoefficient[other.m_size];
+
+    for (int i = 0; i < other.m_size; i++) {
+        tempCoefficient[i] = other.m_coefficient[i] * number;
+    }
+
+    return Polynomial(other.m_degree[0], other.m_degree[other.m_size - 1], tempCoefficient);
+}
+
+Polynomial operator*(int number, const Polynomial &other) {
+    return other * number;
+}
+
+Polynomial operator*(const Polynomial &other1, const Polynomial &other2) {
+    int tempSize = other1.m_size * other2.m_size;
+    int tempCoefficient[tempSize], tempDegree[tempSize];
+    int index = 0;
+
+    for (int i = 0; i < other1.m_size; i++) {
+        for (int j = 0; j < other2.m_size; j++) {
+            tempCoefficient[index] = other1.m_coefficient[i] * other2.m_coefficient[j];
+            tempDegree[index] = other1.m_degree[i] + other2.m_degree[j];
+            index++;
+        }
+    }
+
+    int size = tempDegree[tempSize - 1] - tempDegree[0] + 1;
+    int resultDegree[size], resultCoefficient[size];
+    index = tempDegree[0];
+
+    for (int i = 0; i < size; i++) {
+        resultDegree[i] = index;
+        resultCoefficient[i] = 0;
+        index++;
+    }
+
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < tempSize; j++) {
+            if (tempDegree[j] == resultDegree[i])
+                resultCoefficient[i] += tempCoefficient[j];
+        }
+    }
+
+    return Polynomial(tempDegree[0], tempDegree[tempSize - 1], resultCoefficient);
+}
+
+Polynomial operator/(const Polynomial &other, int number) {
+    int tempCoefficient[other.m_size];
+
+    for (int i = 0; i < other.m_size; i++) {
+        tempCoefficient[i] = other.m_coefficient[i] / number;
+    }
+
+    return Polynomial(other.m_degree[0], other.m_degree[other.m_size - 1], tempCoefficient);
+}
+
+Polynomial operator*=(Polynomial &other1, const Polynomial &other2) {
+    other1 = other1 * other2;
+    return other1;
+}
+
+Polynomial operator/=(Polynomial &other, int number) {
+    other = other / number;
+    return other;
 }

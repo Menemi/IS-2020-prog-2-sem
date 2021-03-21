@@ -36,4 +36,16 @@ public:
     friend Polynomial operator+=(Polynomial &other1, const Polynomial &other2);
 
     friend Polynomial operator-=(Polynomial &other1, const Polynomial &other2);
+
+    friend Polynomial operator*(const Polynomial &other, int number);
+
+    friend Polynomial operator*(int number, const Polynomial &other);
+
+    friend Polynomial operator*(const Polynomial &other1, const Polynomial &other2);
+
+    friend Polynomial operator/(const Polynomial &other, int number);
+
+    friend Polynomial operator*=(Polynomial &other1, const Polynomial &other2);
+
+    friend Polynomial operator/=(Polynomial &other, int number);
 };
