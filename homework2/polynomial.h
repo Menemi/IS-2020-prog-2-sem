@@ -48,4 +48,10 @@ public:
     friend Polynomial operator*=(Polynomial &other1, const Polynomial &other2);
 
     friend Polynomial operator/=(Polynomial &other, int number);
+
+    int &operator[](int i);
+
+    int &operator[](int number) const;
+
+    double get(int number);
 };

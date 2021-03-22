@@ -1,10 +1,8 @@
 #include "polynomial.h"
 
 Polynomial::Polynomial() {
-    m_coefficient = new int[0];
-    *this->m_coefficient = 0;
-    m_degree = new int[0];
-    *this->m_degree = 0;
+    m_coefficient = new int[1]{0};
+    m_degree = new int[1]{0};
     m_size = 1;
 }
 
@@ -17,8 +15,8 @@ Polynomial::Polynomial(int min, int max, int *coefficient) {
     m_size = size;
 
     for (int i = 0; i < size; i++) {
-        this->m_degree[i] = tempDegree;
-        this->m_coefficient[i] = *coefficient;
+        m_degree[i] = tempDegree;
+        m_coefficient[i] = *coefficient;
         tempDegree++;
         coefficient++;
     }
@@ -31,8 +29,8 @@ Polynomial::Polynomial(const Polynomial &other) {
     m_degree = new int[m_size];
 
     for (int i = 0; i < m_size; i++) {
-        this->m_degree[i] = other.m_degree[i];
-        this->m_coefficient[i] = other.m_coefficient[i];
+        m_degree[i] = other.m_degree[i];
+        m_coefficient[i] = other.m_coefficient[i];
     }
 }
 
@@ -202,4 +200,69 @@ Polynomial operator*=(Polynomial &other1, const Polynomial &other2) {
 Polynomial operator/=(Polynomial &other, int number) {
     other = other / number;
     return other;
+}
+
+int &Polynomial::operator[](int number) const {
+    if (number > m_degree[0] && number < m_degree[m_size - 1]) {
+        int index = 0;
+        for (int i = 0; i < m_size; i++) {
+            if (number == m_degree[i]) {
+                break;
+            }
+            index++;
+        }
+        return m_coefficient[index];
+    } else {
+        int *resultCoefficient = new int[1]{0};
+        return *resultCoefficient;
+    }
+}
+
+int &Polynomial::operator[](int number) {
+    if (number > m_degree[0] && number < m_degree[m_size - 1]) {
+        const Polynomial other = *this;
+        return other[number];
+    } else if (number < m_degree[0]) {
+        int max = m_degree[m_size - 1];
+        int min = number;
+        int tempSize = max - min + 1;
+        int tempCoefficient[tempSize];
+
+        for (int i = 0; i < tempSize; i++) {
+            tempCoefficient[i] = 0;
+        }
+
+        for (int i = 1; i < m_size; i++) {
+            tempCoefficient[tempSize - i] = m_coefficient[m_size - i];
+        }
+
+        *this = Polynomial(min, max, tempCoefficient);
+        return m_coefficient[0];
+    } else {
+        int max = number;
+        int min = m_degree[0];
+        int tempSize = max - min + 1;
+        int tempCoefficient[tempSize];
+
+        for (int i = 0; i < tempSize; i++) {
+            tempCoefficient[i] = 0;
+        }
+
+        for (int i = 0; i < m_size; i++) {
+            tempCoefficient[i] = m_coefficient[i];
+        }
+
+        *this = Polynomial(min, max, tempCoefficient);
+        return m_coefficient[m_size - 1];
+    }
+}
+
+double Polynomial::get(int number) {
+    double result = 0;
+
+    for (int i = 0; i < m_size; i++) {
+        result += m_coefficient[i] * pow(number, m_degree[i]);
+    }
+
+    return result;
 }
