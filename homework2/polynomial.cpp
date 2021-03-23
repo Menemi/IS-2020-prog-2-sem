@@ -74,6 +74,7 @@ stringstream &operator<<(stringstream &out, const Polynomial &other) {
     return out;
 }
 
+//todo default doesnt work
 Polynomial &Polynomial::operator=(const Polynomial &other) = default;
 
 bool operator==(const Polynomial &other1, const Polynomial &other2) {
@@ -87,6 +88,7 @@ bool operator!=(const Polynomial &other1, const Polynomial &other2) {
     return !(other1 == other2);
 }
 
+//todo + from +=
 Polynomial operator+(const Polynomial &other1, const Polynomial &other2) {
     int tempMin = min(other1.m_degree[0], other2.m_degree[0]);
     int tempMax = max(other1.m_degree[other1.m_size - 1], other2.m_degree[other2.m_size - 1]);
@@ -120,7 +122,7 @@ Polynomial operator-(const Polynomial &other) {
     }
     return temp;
 }
-
+//todo without creating new object
 Polynomial operator-(const Polynomial &other1, const Polynomial &other2) {
     return other1 + (-other2);
 }
@@ -184,7 +186,7 @@ Polynomial operator*(const Polynomial &other1, const Polynomial &other2) {
 
 Polynomial operator/(const Polynomial &other, int number) {
     int tempCoefficient[other.m_size];
-
+    //todo for_each
     for (int i = 0; i < other.m_size; i++) {
         tempCoefficient[i] = other.m_coefficient[i] / number;
     }
@@ -257,6 +259,7 @@ int &Polynomial::operator[](int number) {
     }
 }
 
+//todo get O(n)
 double Polynomial::get(int number) {
     double result = 0;
 
