@@ -53,7 +53,7 @@ public:
 
     int operator[](int number) const;
 
-    int &operator[](int i);
+    int &operator[](int number);
 
     double get(int number);
 };
