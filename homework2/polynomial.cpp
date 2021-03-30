@@ -108,9 +108,8 @@ bool operator!=(const Polynomial &other1, const Polynomial &other2) {
 }
 
 Polynomial operator+(const Polynomial &other1, const Polynomial &other2) {
-    Polynomial temp = other1;
+    Polynomial temp = Polynomial(other1);
     temp += other2;
-
     return temp;
 }
 
@@ -122,9 +121,14 @@ Polynomial Polynomial::operator-() const {
     return temp;
 }
 
-Polynomial Polynomial::plusOrMinus(Polynomial &other1, const Polynomial &other2, int num) const {
-    int tempMin = min(other1.m_degree[0], other2.m_degree[0]);
-    int tempMax = max(other1.m_degree[m_size - 1], other2.m_degree[other2.m_size - 1]);
+//todo without creating new object
+Polynomial operator-(const Polynomial &other1, const Polynomial &other2) {
+    return other1 + (-other2);
+}
+
+Polynomial Polynomial::operator+=(const Polynomial &other) {
+    int tempMin = min(m_degree[0], other.m_degree[0]);
+    int tempMax = max(m_degree[m_size - 1], other.m_degree[other.m_size - 1]);
     int tempSize = tempMax - tempMin + 1;
     int tempCoefficient[tempSize];
     int counter = tempMin;
@@ -132,39 +136,28 @@ Polynomial Polynomial::plusOrMinus(Polynomial &other1, const Polynomial &other2,
     for (int i = 0; i < tempSize; i++) {
         tempCoefficient[i] = 0;
 
-        for (int j = 0; j < other1.m_size; j++) {
-            if (other1.m_degree[j] == counter) {
-                tempCoefficient[i] += other1.m_coefficient[j];
+        for (int j = 0; j < m_size; j++) {
+            if (m_degree[j] == counter) {
+                tempCoefficient[i] += m_coefficient[j];
             }
         }
 
-        for (int j = 0; j < other2.m_size; j++) {
-            if (other2.m_degree[j] == counter) {
-                tempCoefficient[i] += other2.m_coefficient[j] * num;
+        for (int j = 0; j < other.m_size; j++) {
+            if (other.m_degree[j] == counter) {
+                tempCoefficient[i] += other.m_coefficient[j];
             }
         }
         counter++;
     }
 
-    other1 = Polynomial(tempMin, tempMax, tempCoefficient);
+    *this = Polynomial(tempMin, tempMax, tempCoefficient);
 
-    return other1;
-}
-
-//fixed without creating new object
-Polynomial operator-(const Polynomial &other1, const Polynomial &other2) {
-    Polynomial temp = other1;
-    temp -= other2;
-
-    return temp;
-}
-
-Polynomial Polynomial::operator+=(const Polynomial &other) {
-    return plusOrMinus(*this, other, 1);
+    return *this;
 }
 
 Polynomial Polynomial::operator-=(const Polynomial &other) {
-    return plusOrMinus(*this, other, -1);
+    *this = *this - other;
+    return *this;
 }
 
 Polynomial operator*(const Polynomial &other, int number) {
