@@ -98,8 +98,6 @@ bool operator==(const Polynomial &other1, const Polynomial &other2) {
     stringstream ss1, ss2;
     ss1 << other1;
     ss2 << other2;
-    auto temp1 = ss1.str();
-    auto temp2 = ss2.str();
     return ss1.str() == ss2.str();
 }
 
