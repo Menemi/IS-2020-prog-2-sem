@@ -24,7 +24,6 @@ public:
 
     Polynomial &operator=(const Polynomial &other);
 
-    //fixed $= is inside class, $ friend function
     friend bool operator==(const Polynomial &other1, const Polynomial &other2);
 
     friend bool operator!=(const Polynomial &other1, const Polynomial &other2);
