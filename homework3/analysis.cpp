@@ -26,8 +26,8 @@ void Analysis::setRoutes(const string &str) {
 
 void Analysis::setCoords(const string &str) {
     vector<string> tokens = split(str, ',');
-    coords.first = atof(tokens[0].c_str());
-    coords.second = atof(tokens[1].c_str());
+    cord.first = atof(tokens[0].c_str());
+    cord.second = atof(tokens[1].c_str());
 }
 
 string Analysis::getType() const {
@@ -43,7 +43,7 @@ const vector<string> &Analysis::getRoutes() const {
 }
 
 pair<double, double> Analysis::getCoords() const {
-    return coords;
+    return cord;
 }
 
 vector<string> Analysis::split(const string &str, char ch1) {

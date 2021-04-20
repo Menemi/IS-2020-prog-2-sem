@@ -35,7 +35,7 @@ private:
     string type;
     vector<string> streets;
     vector<string> routes;
-    pair<double, double> coords;
+    pair<double, double> cord;
 
     static vector<string> split(const string &, char);
 
