@@ -9,15 +9,15 @@ class Analysis {
 public:
     Analysis() {}
 
-    void setID(int);
+    void setID(int id);
 
-    void setType(const string &);
+    void setType(const string &type);
 
-    void setStreets(const string &);
+    void setStreets(const string &str);
 
-    void setRoutes(const string &);
+    void setRoutes(const string &str);
 
-    void setCoords(const string &);
+    void setCoords(const string &str);
 
     string getType() const;
 
@@ -27,7 +27,7 @@ public:
 
     pair<double, double> getCoords() const;
 
-    static double length(const vector<pair<double, double>> &);
+    static double length(const vector<pair<double, double>> &stops);
 
 
 private:
@@ -37,7 +37,7 @@ private:
     vector<string> routes;
     pair<double, double> coords;
 
-    static vector<string> split(const string &, char) ;
+    static vector<string> split(const string &, char);
 
-    static string replace(const string &, const string &, const string &) ;
+    static string replace(const string &, const string &, const string &);
 };
