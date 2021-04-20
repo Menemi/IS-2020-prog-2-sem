@@ -10,7 +10,7 @@ int main() {
     ofstream fout("output.txt");
     setlocale(0, "");
     pugi::xml_document xml;
-    xml.load_file("..\\data\\data-20210322T085457-structure-20190416T084545.xml");
+    xml.load_file("data\\data-20210322T085457-structure-20190416T084545.xml");
 
     vector<Analysis> stations;
 
@@ -41,11 +41,11 @@ int main() {
     }
 
 
+    //todo first-second
     map<string, pair<string, unsigned>> maxStopsRoute;
     for (const auto &type: transportType) {
         maxStopsRoute[type].first = "";
         maxStopsRoute[type].second = 0;
-
         map<string, unsigned> stopsRoute;
         for (const auto& s: stations) {
             if (s.getType() != type)
