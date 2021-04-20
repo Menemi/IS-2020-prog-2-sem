@@ -1,0 +1,28 @@
+Pulling https://github.com/1Menemi1/IS-2020-prog-2-sem/homework3
+Pull finished
+It's compiled
+
+analysis.cpp: In static member function 'static std::vector<std::__cxx11::basic_string<char> > Analysis::split(const string&, char)':
+analysis.cpp:53:23: warning: comparison of integer expressions of different signedness: 'int' and 'std::__cxx11::basic_string<char>::size_type' {aka 'unsigned int'} [-Wsign-compare]
+   53 |     for (int i = 0; i < str.length() - 1; i++)
+      |                     ~~^~~~~~~~~~~~~~~~~~
+analysis.cpp: In static member function 'static std::string Analysis::replace(const string&, const string&, const string&)':
+analysis.cpp:67:32: warning: comparison of integer expressions of different signedness: 'int' and 'const size_type' {aka 'const unsigned int'} [-Wsign-compare]
+   67 |     while ((i = temp.find(s1)) != string::npos)
+      |            ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~
+analysis.cpp: In static member function 'static double Analysis::length(const std::vector<std::pair<double, double> >&)':
+analysis.cpp:83:17: warning: comparison of integer expressions of different signedness: 'int' and 'std::vector<std::pair<double, double> >::size_type' {aka 'unsigned int'} [-Wsign-compare]
+   83 |     while (next != stops.size()) {
+      |            ~~~~~^~~~~~~~~~~~~~~
+analysis.cpp:89:27: warning: comparison of integer expressions of different signedness: 'int' and 'std::vector<std::pair<double, double> >::size_type' {aka 'unsigned int'} [-Wsign-compare]
+   89 |         for (int i = 0; i < stops.size(); i++) {
+      |                         ~~^~~~~~~~~~~~~~
+analysis.cpp:101:18: warning: comparison of integer expressions of different signedness: 'int' and 'std::vector<std::pair<double, double> >::size_type' {aka 'unsigned int'} [-Wsign-compare]
+  101 |         if (next < stops.size()) {
+      |             ~~~~~^~~~~~~~~~~~~~
+analysis.cpp:102:31: warning: comparison of integer expressions of different signedness: 'int' and 'std::vector<std::pair<double, double> >::size_type' {aka 'unsigned int'} [-Wsign-compare]
+  102 |             for (int i = 0; i < stops.size(); i++) {
+      |                             ~~^~~~~~~~~~~~~~
+
+
+
