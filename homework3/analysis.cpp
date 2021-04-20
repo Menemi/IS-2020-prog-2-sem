@@ -3,6 +3,9 @@
 
 using namespace std;
 
+const int LATITUDE = 110;
+const int LONGITUDE = 58;
+
 void Analysis::setID(int id) {
     this->id = id;
 }
@@ -68,7 +71,8 @@ string Analysis::replace(const string &str, const string &s1, const string &s2) 
 }
 
 double distance(pair<double, double> p1, pair<double, double> p2) {
-    return sqrt(pow((p1.first - p2.first) * 111.0, 2) + pow((p1.second - p2.second) * 58, 2));
+    return sqrt(pow((p1.first - p2.first) * LATITUDE, 2) +
+                pow((p1.second - p2.second) * LONGITUDE, 2));
 }
 
 double Analysis::length(const vector<pair<double, double>> &stops) {
