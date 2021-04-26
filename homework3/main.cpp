@@ -41,17 +41,16 @@ int main() {
     }
 
 
-    //todo first-second
+    //fixed first-second
     map<string, pair<string, unsigned>> maxStopsRoute;
     for (const auto &type: transportType) {
-        maxStopsRoute[type].first = "";
-        maxStopsRoute[type].second = 0;
+        maxStopsRoute[type] = {"", 0};
         map<string, unsigned> stopsRoute;
-        for (const auto& s: stations) {
+        for (const auto &s: stations) {
             if (s.getType() != type)
                 continue;
 
-            for (const auto& route: s.getRoutes()) {
+            for (const auto &route: s.getRoutes()) {
                 if (stopsRoute.find(route) != stopsRoute.end())
                     stopsRoute[route]++;
                 else
@@ -59,18 +58,19 @@ int main() {
             }
         }
 
-        for (auto[route, num_of_stops]: stopsRoute)
-            if (num_of_stops > maxStopsRoute[type].second) {
-                maxStopsRoute[type].second = num_of_stops;
-                maxStopsRoute[type].first = route;
+        for (auto[newRoute, newStopsNum]: stopsRoute) {
+            auto &[route, stopsNum] = maxStopsRoute[type];
+            if (newStopsNum > stopsNum) {
+                route = newRoute;
+                stopsNum = newStopsNum;
             }
+        }
     }
 
 
     map<string, pair<string, double>> maxRoute;
     for (const auto &type: transportType) {
-        maxRoute[type].first = "";
-        maxRoute[type].second = 0;
+        maxRoute[type] = {"", 0};
         map<string, vector<pair<double, double>>> stopsRoute;
 
         for (const auto &s: stations) {
@@ -84,11 +84,12 @@ int main() {
             }
         }
 
-        for (auto[route, stops_coors]: stopsRoute) {
-            double length = Analysis::length(stops_coors);
-            if (length > maxRoute[type].second) {
-                maxRoute[type].second = length;
-                maxRoute[type].first = route;
+        for (auto[newRoute, newStopsCord]: stopsRoute) {
+            double length = Analysis::length(newStopsCord);
+            auto &[route, stopsCord] = maxRoute[type];
+            if (length > stopsCord) {
+                route = newRoute;
+                stopsCord = length;
             }
         }
     }
@@ -105,12 +106,16 @@ int main() {
 
 
     fout << "=-=-=Маршрут с наибольшим кол-ом остановок по отдельными видам транспорта=-=-=\n\n";
-    for (const auto &i: transportType)
-        fout << maxStopsRoute[i].first << "ый " << i << " - " << maxStopsRoute[i].second << " остановки(-ок)\n";
+    for (const auto &i: transportType) {
+        auto &[route, stopsNum] = maxStopsRoute[i];
+        fout << route << "ый " << i << " - " << stopsNum << " остановки(-ок)\n";
+    }
 
     fout << "\n=-=-=-=-=-=-Наиболее длинные маршруты по отдельным видам транпорта-=-=-=-=-=-=\n\n";
-    for (const auto &i: transportType)
-        fout << maxRoute[i].first << "ый " << i << " - " << maxRoute[i].second << "км\n";
+    for (const auto &i: transportType) {
+        auto &[route, stopsCord] = maxRoute[i];
+        fout << route << "ый " << i << " - " << stopsCord << "км\n";
+    }
 
     fout << "\n=-=-=-=-=-=-=-=-=-=-=Улица с наибольшим числом остановок=-=-=-=-=-=-=-=-=-=-=\n\n";
     fout << streetMaxRoutes << " - " << maxStops << " остановки(-ок)";

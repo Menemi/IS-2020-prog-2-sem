@@ -9,7 +9,7 @@ class Analysis {
 public:
     Analysis() {}
 
-    void setID(int id);
+    void setID(unsigned id);
 
     void setType(const string &type);
 

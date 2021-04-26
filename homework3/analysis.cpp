@@ -6,7 +6,7 @@ using namespace std;
 const int MERIDIAN_DEGREE = 110;
 const int LATITUDE = 58;
 
-void Analysis::setID(int id) {
+void Analysis::setID(unsigned id) {
     this->id = id;
 }
 
@@ -14,20 +14,19 @@ void Analysis::setType(const string &type) {
     this->type = type;
 }
 
-void Analysis::setStreets(const string &str) {
-    if (str.length() > 0)
-        streets = split(str, ',');
+void Analysis::setStreets(const string &String) {
+    if (String.length() > 0)
+        streets = split(String, ',');
 }
 
-void Analysis::setRoutes(const string &str) {
-    if (str.length() > 0)
-        routes = split(replace(str, ".", ","), ',');
+void Analysis::setRoutes(const string &String) {
+    if (String.length() > 0)
+        routes = split(replace(String, ".", ","), ',');
 }
 
-void Analysis::setCoords(const string &str) {
-    vector<string> tokens = split(str, ',');
-    cord.first = atof(tokens[0].c_str());
-    cord.second = atof(tokens[1].c_str());
+void Analysis::setCoords(const string &String) {
+    vector<string> tokens = split(String, ',');
+    cord = {atof(tokens[0].c_str()), atof(tokens[1].c_str())};
 }
 
 string Analysis::getType() const {
@@ -46,23 +45,23 @@ pair<double, double> Analysis::getCoords() const {
     return cord;
 }
 
-vector<string> Analysis::split(const string &str, char ch1) {
+vector<string> Analysis::split(const string &String, char ch1) {
     vector<string> result;
-    int prev = 0;
+    size_t prev = 0;
 
-    for (int i = 0; i < str.length() - 1; i++)
-        if (str[i] == ch1) {
-            result.push_back(str.substr(prev, i - prev));
+    for (size_t i = 0; i < String.length() - 1; i++)
+        if (String[i] == ch1) {
+            result.push_back(String.substr(prev, i - prev));
             prev = i + 1;
         }
 
-    result.push_back(str.substr(prev));
+    result.push_back(String.substr(prev));
     return result;
 }
 
-string Analysis::replace(const string &str, const string &s1, const string &s2) {
-    string temp = str;
-    int i;
+string Analysis::replace(const string &String, const string &s1, const string &s2) {
+    string temp = String;
+    size_t i;
 
     while ((i = temp.find(s1)) != string::npos)
         temp.replace(i, s1.length(), s2);
@@ -70,45 +69,45 @@ string Analysis::replace(const string &str, const string &s1, const string &s2) 
     return temp;
 }
 
-double distance(pair<double, double> p1, pair<double, double> p2) {
-    return sqrt(pow((p1.first - p2.first) * MERIDIAN_DEGREE, 2) +
-                pow((p1.second - p2.second) * LATITUDE, 2));
+double distance(pair<double, double> other1, pair<double, double> other2) {
+    return sqrt(pow((other1.first - other2.first) * MERIDIAN_DEGREE, 2) +
+                pow((other1.second - other2.second) * LATITUDE, 2));
 }
 
 double Analysis::length(const vector<pair<double, double>> &stops) {
     double length = 0;
-    int next = 0;
+    size_t next = 0;
     vector<bool> visited(stops.size(), false);
 
     while (next != stops.size()) {
-        int cur = next;
+        size_t cur = next;
         visited[cur] = true;
-        double min_dist = INT64_MAX;
+        double minDist = INT64_MAX;
         next = stops.size();
 
-        for (int i = 0; i < stops.size(); i++) {
+        for (size_t i = 0; i < stops.size(); i++) {
             if (visited[i])
                 continue;
 
             double dist;
 
-            if ((dist = distance(stops[cur], stops[i])) < min_dist) {
-                min_dist = dist;
+            if ((dist = distance(stops[cur], stops[i])) < minDist) {
+                minDist = dist;
                 next = i;
             }
         }
 
         if (next < stops.size()) {
-            for (int i = 0; i < stops.size(); i++) {
+            for (size_t i = 0; i < stops.size(); i++) {
                 if (!visited[i])
                     continue;
 
                 double dist = distance(stops[next], stops[i]);
-                if (dist < min_dist)
-                    min_dist = dist;
+                if (dist < minDist)
+                    minDist = dist;
             }
 
-            length += min_dist;
+            length += minDist;
         }
     }
     return length;
