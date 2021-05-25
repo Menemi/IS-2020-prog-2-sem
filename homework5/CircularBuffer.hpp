@@ -94,9 +94,9 @@ public:
         capacity = other.capacity;
         elements = other.elements;
     }
-
+    //todo delete
     ~CircularBuffer() = default;
-
+    //todo more information in exceptions
     T &operator[](int index) const {
         if (size == 0)
             throw std::out_of_range("Error: empty container");
@@ -104,7 +104,7 @@ public:
             throw std::out_of_range("Error: index is out of range");
         return elements[index % capacity];
     }
-
+    //todo O(1)
     void addFirst(T first) {
         if (size < capacity - 1) {
             for (int i = size; i >= 1; i--)
@@ -147,6 +147,7 @@ public:
             T *tempElements = new T[tempCapacity + 1];
             for (int i = 0; i < size; i++)
                 tempElements[i] = elements[i];
+            //todo delete[]
             delete elements;
             elements = tempElements;
             capacity = tempCapacity + 1;
