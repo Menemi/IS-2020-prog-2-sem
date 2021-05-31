@@ -11,3 +11,6 @@
 ---
 ### [Lab4 - STL. Алгоритмы. Итераторы](https://github.com/1Menemi1/IS-2020-prog-2-sem/tree/main/homework4)
 #### [Задание](https://github.com/1Menemi1/IS-2020-prog-2-sem/blob/main/homework4/lab4.pdf)
+---
+### [Lab5 - STL. Контейнеры](https://github.com/1Menemi1/IS-2020-prog-2-sem/tree/main/homework5)
+#### [Задание](https://github.com/1Menemi1/IS-2020-prog-2-sem/blob/main/homework5/lab5.pdf)
