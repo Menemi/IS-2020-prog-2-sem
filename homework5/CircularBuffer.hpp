@@ -38,10 +38,6 @@ public:
             start = other.start;
         }
 
-        ~Iterator() {
-            delete[] elements;
-        }
-
         Iterator &operator+=(difference_type tempNum) {
             index += tempNum;
             return *this;
