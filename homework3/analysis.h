@@ -6,10 +6,16 @@
 using namespace std;
 
 class Analysis {
-public:
-    Analysis() {}
+private:
+    string type;
+    vector<string> streets;
+    vector<string> routes;
+    pair<double, double> coord;
 
-    void setID(unsigned id);
+    static string replace(const string &, const string &, const string &);
+
+public:
+    Analysis() {};
 
     void setType(const string &type);
 
@@ -28,16 +34,4 @@ public:
     pair<double, double> getCoords() const;
 
     static double length(const vector<pair<double, double>> &stops);
-
-
-private:
-    int id;
-    string type;
-    vector<string> streets;
-    vector<string> routes;
-    pair<double, double> cord;
-
-    static vector<string> split(const string &, char);
-
-    static string replace(const string &, const string &, const string &);
 };

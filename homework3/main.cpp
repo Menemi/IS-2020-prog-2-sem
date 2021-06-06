@@ -10,14 +10,13 @@ int main() {
     ofstream fout("output.txt");
     setlocale(0, "");
     pugi::xml_document xml;
-    xml.load_file("data\\data-20210322T085457-structure-20190416T084545.xml");
+    xml.load_file("data\\data.xml");
 
     vector<Analysis> stations;
 
     for (auto &station: xml.child("dataset").children("transport_station")) {
         Analysis tempStation;
 
-        tempStation.setID(atoi(station.child_value("number")));
         tempStation.setType(station.child_value("type_of_vehicle"));
         tempStation.setStreets(station.child_value("location"));
         tempStation.setRoutes(station.child_value("routes"));
@@ -27,7 +26,7 @@ int main() {
     }
 
     set<string> transportType;
-    map<string, unsigned> stopsStreet;
+    map<string, int> stopsStreet;
 
     for (const Analysis &s: stations) {
         transportType.insert(s.getType());
@@ -40,12 +39,11 @@ int main() {
         }
     }
 
-
     //fixed first-second
-    map<string, pair<string, unsigned>> maxStopsRoute;
+    map<string, pair<string, int>> maxStopsRoute;
     for (const auto &type: transportType) {
         maxStopsRoute[type] = {"", 0};
-        map<string, unsigned> stopsRoute;
+        map<string, int> stopsRoute;
         for (const auto &s: stations) {
             if (s.getType() != type)
                 continue;
@@ -96,7 +94,7 @@ int main() {
 
 
     string streetMaxRoutes;
-    unsigned maxStops = 0;
+    int maxStops = 0;
 
     for (auto[street, stopsNum]: stopsStreet)
         if (stopsNum > maxStops) {

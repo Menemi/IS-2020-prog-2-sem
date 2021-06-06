@@ -6,27 +6,61 @@ using namespace std;
 const int MERIDIAN_DEGREE = 110;
 const int LATITUDE = 58;
 
-void Analysis::setID(unsigned id) {
-    this->id = id;
+string Analysis::replace(const string &String, const string &string1, const string &string2) {
+    string tempString = String;
+
+    int i;
+    while ((i = tempString.find(string1)) != string::npos)
+        tempString.replace(i, string1.length(), string2);
+
+    return tempString;
 }
 
-void Analysis::setType(const string &type) {
-    this->type = type;
+void Analysis::setType(const string &otherType) {
+    type = otherType;
 }
 
-void Analysis::setStreets(const string &String) {
-    if (String.length() > 0)
-        streets = split(String, ',');
+void Analysis::setStreets(const string &otherStreets) {
+    if (otherStreets.length() > 0) {
+        int prev = 0;
+
+        for (int i = 0; i < otherStreets.length() - 1; i++)
+            if (otherStreets[i] == ',') {
+                streets.push_back(otherStreets.substr(prev, i - prev));
+                prev = i + 1;
+            }
+
+        streets.push_back(otherStreets.substr(prev));
+    }
 }
 
-void Analysis::setRoutes(const string &String) {
-    if (String.length() > 0)
-        routes = split(replace(String, ".", ","), ',');
+void Analysis::setRoutes(const string &otherRoutes) {
+    if (otherRoutes.length() > 0) {
+        string tempString = replace(otherRoutes, ".", ",");
+        int prev = 0;
+
+        for (int i = 0; i < otherRoutes.length() - 1; i++)
+            if (otherRoutes[i] == ',') {
+                routes.push_back(otherRoutes.substr(prev, i - prev));
+                prev = i + 1;
+            }
+
+        routes.push_back(otherRoutes.substr(prev));
+    }
 }
 
-void Analysis::setCoords(const string &String) {
-    vector<string> tokens = split(String, ',');
-    cord = {atof(tokens[0].c_str()), atof(tokens[1].c_str())};
+void Analysis::setCoords(const string &otherCoords) {
+    vector<string> tokens;
+    int prev = 0;
+
+    for (int i = 0; i < otherCoords.length() - 1; i++)
+        if (otherCoords[i] == ',') {
+            tokens.push_back(otherCoords.substr(prev, i - prev));
+            prev = i + 1;
+        }
+
+    tokens.push_back(otherCoords.substr(prev));
+    coord = {atof(tokens[0].c_str()), atof(tokens[1].c_str())};
 }
 
 string Analysis::getType() const {
@@ -42,50 +76,26 @@ const vector<string> &Analysis::getRoutes() const {
 }
 
 pair<double, double> Analysis::getCoords() const {
-    return cord;
+    return coord;
 }
 
-vector<string> Analysis::split(const string &String, char ch1) {
-    vector<string> result;
-    size_t prev = 0;
-
-    for (size_t i = 0; i < String.length() - 1; i++)
-        if (String[i] == ch1) {
-            result.push_back(String.substr(prev, i - prev));
-            prev = i + 1;
-        }
-
-    result.push_back(String.substr(prev));
-    return result;
-}
-
-string Analysis::replace(const string &String, const string &s1, const string &s2) {
-    string temp = String;
-    size_t i;
-
-    while ((i = temp.find(s1)) != string::npos)
-        temp.replace(i, s1.length(), s2);
-
-    return temp;
-}
-
-double distance(pair<double, double> other1, pair<double, double> other2) {
-    return sqrt(pow((other1.first - other2.first) * MERIDIAN_DEGREE, 2) +
-                pow((other1.second - other2.second) * LATITUDE, 2));
+double distance(pair<double, double> coord1, pair<double, double> coord2) {
+    return sqrt(pow((coord1.first - coord2.first) * MERIDIAN_DEGREE, 2) +
+                pow((coord1.second - coord2.second) * LATITUDE, 2));
 }
 
 double Analysis::length(const vector<pair<double, double>> &stops) {
     double length = 0;
-    size_t next = 0;
+    int next = 0;
     vector<bool> visited(stops.size(), false);
 
     while (next != stops.size()) {
-        size_t cur = next;
+        int cur = next;
         visited[cur] = true;
         double minDist = INT64_MAX;
         next = stops.size();
 
-        for (size_t i = 0; i < stops.size(); i++) {
+        for (int i = 0; i < stops.size(); i++) {
             if (visited[i])
                 continue;
 
@@ -98,7 +108,7 @@ double Analysis::length(const vector<pair<double, double>> &stops) {
         }
 
         if (next < stops.size()) {
-            for (size_t i = 0; i < stops.size(); i++) {
+            for (int i = 0; i < stops.size(); i++) {
                 if (!visited[i])
                     continue;
 
